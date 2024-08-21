@@ -1,0 +1,39 @@
+CREATE TABLE IF NOT EXISTS public.vehiclemaster
+(
+    regid varchar(10) NOT NULL,
+    make varchar(25) NOT NULL,
+    model varchar(50) NOT NULL,
+    sizetype varchar(10) NOT NULL,
+    fueltype varchar(25) NOT NULL,
+    isac boolean NOT NULL,
+    purchasedate date NOT NULL,
+    purchaseprice numeric(11,2) NOT NULL,
+    purchaseodometer numeric(7,1) NOT NULL,
+    purchasevendor varchar(100)  NOT NULL,
+    purchasecontact varchar(50) NOT NULL,
+    purchasecondition varchar(3) NOT NULL,
+    chargeperhour numeric(7,2) NOT NULL,
+    chargeperkm numeric(7,2) NOT NULL,
+    status varchar(10) NOT NULL,
+    CONSTRAINT vehiclemaster_pkey PRIMARY KEY (regid)   //Not an attribute
+)
+
+CREATE TABLE IF NOT EXISTS public.usermaster
+(
+    userid varchar(50) NOT NULL,
+    password varchar(50) NOT NULL,
+    role varchar(50) NOT NULL,
+    status character(1) DEFAULT 'A'::bpchar,
+    CONSTRAINT usermaster_pkey PRIMARY KEY (userid), //Not an attribute
+    CONSTRAINT usermaster_status_check CHECK (status = ANY (ARRAY['A'::bpchar, 'D'::bpchar, 'I'::bpchar])) //Not an attribute
+)
+
+CREATE TABLE IF NOT EXISTS public.bookingsmaster
+(
+    _source character varying(50) COLLATE pg_catalog."default",
+    destination character varying(50) COLLATE pg_catalog."default",
+    from_date date,
+    to_date date,
+    car_size character varying(50) COLLATE pg_catalog."default",
+    ac boolean
+)
